@@ -1,16 +1,14 @@
 # src/train.py
-
 import sys
 import os
-
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from src.grammar_checker import train_model, save_model_and_vocab
 
 # Paths relative to the train.py file's location
+from src.grammar_checker import train_model, save_model_and_vocab
 sentences_file = os.path.join(os.path.dirname(__file__), '../data/sentences.txt')
 labels_file = os.path.join(os.path.dirname(__file__), '../data/labels.txt')
 models_path = os.path.join(os.path.dirname(__file__), '../models/')
-model_path = os.path.join(models_path, 'grammar_checker_model.pth')  # Full model path with filename
+model_path = os.path.join(models_path, 'grammar_checker_model.pth')
 
 def load_sentences_from_file(file_path):
     sentences = []
