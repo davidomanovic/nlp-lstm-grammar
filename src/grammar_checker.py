@@ -1,19 +1,17 @@
 # src/grammar_checker.py
-
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
 import torch.optim as optim
 import numpy as np
 
-# Define the LSTM model for grammar checking
 class GrammarCheckerLSTM(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim, output_dim, dropout_prob=0.5):
         super(GrammarCheckerLSTM, self).__init__()
         self.embedding = nn.Embedding(vocab_size, embedding_dim)
         self.lstm = nn.LSTM(embedding_dim, hidden_dim, batch_first=True, bidirectional=True)
         self.dropout = nn.Dropout(dropout_prob)  # Dropout layer
-        self.fc = nn.Linear(hidden_dim * 2, output_dim)  # Adjust for bidirectional LSTM
+        self.fc = nn.Linear(hidden_dim * 2, output_dim)  
 
     def forward(self, x):
         x = self.embedding(x)
@@ -22,7 +20,6 @@ class GrammarCheckerLSTM(nn.Module):
         output = self.fc(x)
         return output
         
-
 # Dataset for grammar checking
 class GrammarDataset(Dataset):
     def __init__(self, sentences, labels, word_to_idx, max_len=None):
